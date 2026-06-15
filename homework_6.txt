@@ -1,0 +1,48 @@
+<#.SYNOPSIS...#>
+
+#===БЛОК 1: Создание необходимых папок===
+
+New-Item -Path $HOME -Name PS_Homework -ItemType Directory -Force
+
+Set-Location -Path "C:\Users\dasha10\PS_Homework\"
+Get-Location
+
+New-Item -Path "C:\Users\dasha10\PS_Homework\Reports" -ItemType Directory
+New-Item -Path "C:\Users\dasha10\PS_Homework\Archive" -ItemType Directory
+New-Item -Path "C:\Users\dasha10\PS_Homework\Temp" -ItemType Directory
+
+#===БЛОК 2: Создание текстовых файлов===
+
+Set-Location -Path "C:\Users\dasha10\PS_Homework\Reports\"
+
+New-Item -Path "C:\Users\dasha10\PS_Homework\Reports\report_2024.txt" -ItemType File -Value "Годовой отчет" -Force
+New-Item -Path "C:\Users\dasha10\PS_Homework\Reports\report_2025.txt" -ItemType File -Value "Промежуточный отчет" -Force
+New-Item -Path "C:\Users\dasha10\PS_Homework\Reports\notes.txt" -ItemType File -Value "Заметки" -Force
+New-Item -Path "C:\Users\dasha10\PS_Homework\Temp\temp_data.txt" -ItemType File -Value "Расписание" -Force
+
+#===БЛОК 3: Работа с переменными===
+
+$Year = 2025
+
+$IsValid = 2020 -gt $Year -lt 2030
+$IsValid
+
+$TextFile = Get-ChildItem | Where-Object { $_.Name -like "*.txt" }
+$TextFile.Count
+
+$ReportFile = Get-ChildItem | Where-Object { $_.Name -like "*report*" }
+
+#===БЛОК 4: Операции с папками и файлами===
+
+Copy-Item -Path "C:\Users\dasha10\PS_Homework\Reports\notes.txt" -Destination "C:\Users\dasha10\PS_Homework\Archive\notesbackup.txt"
+
+Rename-Item -Path "C:\Users\dasha10\PS_Homework\Reports\notes.txt" -NewName "notes_final.txt"
+
+Move-Item -Path "C:\Users\dasha10\PS_Homework\Temp\temp_data.txt" -Destination "C:\Users\dasha10\PS_Homework"
+
+Remove-Item -Path "C:\Users\dasha10\PS_Homework\Temp" -Recurse -WhatIf
+Remove-Item -Path "C:\Users\dasha10\PS_Homework\Temp" -Recurse -Force
+
+Get-ChildItem -Path "C:\Users\dasha10\PS_Homework" -Recurse
+
+Set-Location -Path "C:\Users\dasha10"
